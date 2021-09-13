@@ -19,50 +19,21 @@ const scene = new THREE.Scene();
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
-const particleTexture1 = textureLoader.load('/textures/images/1.jpg');
-const particleTexture2 = textureLoader.load('/textures/images/2.jpg');
-const particleTexture3 = textureLoader.load('/textures/images/3.jpg');
-const particleTexture4 = textureLoader.load('/textures/images/4.jpg');
-const particleTexture5 = textureLoader.load('/textures/images/5.jpg');
-const particleTexture6 = textureLoader.load('/textures/images/6.jpg');
-const particleTexture7 = textureLoader.load('/textures/images/7.jpg');
-const particleTexture8 = textureLoader.load('/textures/images/8.jpg');
-const particleTexture9 = textureLoader.load('/textures/images/9.jpg');
-const particleTexture10 = textureLoader.load('/textures/images/10.jpg');
-const particleTexture11 = textureLoader.load('/textures/images/11.jpg');
-
-const arrayImages = new Array(
-  particleTexture1,
-  particleTexture2,
-  particleTexture3,
-  particleTexture4,
-  particleTexture5,
-  particleTexture6,
-  particleTexture7,
-  particleTexture8,
-  particleTexture9,
-  particleTexture10,
-  particleTexture11
-);
+const particleTexture = textureLoader.load('/textures/particles/2.png');
 
 /**
  * PARTICLES
  */
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry();
-const count = 50;
+const count = 500;
 
 // Images random
 
 const positions = new Float32Array(count * 3);
 
-// let num = Math.floor(Math.random() * arrayImages.length);
-let displayImages = [];
-
 for (let i = 0; i < count * 3; i++) {
-  // set number
   positions[i] = (Math.random() - 0.5) * 10;
-  displayImages = Math.floor(Math.random() * arrayImages.length);
 }
 
 particlesGeometry.setAttribute(
@@ -72,9 +43,15 @@ particlesGeometry.setAttribute(
 
 // Material
 const particlesMaterial = new THREE.PointsMaterial();
-particlesMaterial.size = 1;
+particlesMaterial.size = 0.3;
 particlesMaterial.sizeAttenuation = true;
-particlesMaterial.map = ;
+particlesMaterial.color = new THREE.Color('#ff88cc');
+particlesMaterial.transparent = true;
+particlesMaterial.alphaMap = particleTexture;
+// particlesMaterial.alphaTest = 0.001;
+// particlesMaterial.depthTest = false;
+particlesMaterial.depthWrite = false;
+particlesMaterial.blending = THREE.AdditiveBlending;
 
 // Points
 const particles = new THREE.Points(particlesGeometry, particlesMaterial);
